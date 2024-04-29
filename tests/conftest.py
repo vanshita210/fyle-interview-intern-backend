@@ -1,11 +1,11 @@
-import pytest
 import json
-from tests import app
-
+import pytest
+from core.server import app
 
 @pytest.fixture
 def client():
-    return app.test_client()
+    with app.test_client() as client:
+        yield client
 
 
 @pytest.fixture
@@ -16,9 +16,7 @@ def h_student_1():
             'user_id': 1
         })
     }
-
     return headers
-
 
 @pytest.fixture
 def h_student_2():
@@ -28,9 +26,7 @@ def h_student_2():
             'user_id': 2
         })
     }
-
     return headers
-
 
 @pytest.fixture
 def h_teacher_1():
@@ -40,9 +36,7 @@ def h_teacher_1():
             'user_id': 3
         })
     }
-
     return headers
-
 
 @pytest.fixture
 def h_teacher_2():
@@ -52,9 +46,7 @@ def h_teacher_2():
             'user_id': 4
         })
     }
-
     return headers
-
 
 @pytest.fixture
 def h_principal():
@@ -64,5 +56,4 @@ def h_principal():
             'user_id': 5
         })
     }
-
     return headers
